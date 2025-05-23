@@ -1,0 +1,38 @@
+.appHeader {
+    margin: 0 auto;
+    width: 97%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 20px 0;
+}
+
+.appHeader img {
+    width: auto;
+    height: 80px;
+}
+
+.buttonsHeader {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    align-items: center;
+}
+
+.menuHeader {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+}
+
+.menuHeader a {
+    text-decoration: none;
+    color: #7e5c62;
+    font-size: 16pt;
+    font-weight: bold;
+}
+.menuHeader a:hover {
+    color: #9a7d82;
+}

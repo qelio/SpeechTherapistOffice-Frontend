@@ -1,0 +1,88 @@
+.RegisterConatiner {
+    width: 97%;
+    margin: 0 auto 20px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.RegisterImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.RegisterImage img {
+    width: 100%;
+    height: 80vh;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.RegisterForm {
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.RegisterForm h1 {
+    margin-bottom: 10px;
+    font-size: 40px;
+    text-align: center;
+}
+
+.RegisterForm p {
+    margin-bottom: 50px;
+    color: #444;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.RegisterForm form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.RegisterForm input[type="text"],
+.RegisterForm input[type="email"],
+.RegisterForm input[type="password"],
+.RegisterForm input[type="tel"],
+.RegisterForm input[type="date"] {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.RadioGroup {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.RegisterForm button {
+    margin-top: 20px;
+    padding: 14px;
+    background-color: #222;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.RegisterForm button:hover {
+    background-color: #444;
+}
+
+.Error {
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
