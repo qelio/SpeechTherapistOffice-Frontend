@@ -3,7 +3,8 @@ import HomePage from './pages/home/HomePage';
 import SignUpPage from './pages/sign-up/SignUpPage';
 import AppFooter from "./components/footer/Footer";
 import AppHeader from "./components/header/Header";
-
+import SignInPage from "./pages/sign-in/SignInPage";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
+            <Route path="/sign-in" element={<SignInPage />} />
           </Routes>
         </main>
         <AppFooter />
@@ -20,5 +22,4 @@ function App() {
 
   );
 }
-
 export default App;

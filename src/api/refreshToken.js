@@ -1,0 +1,19 @@
+import {getCookie} from "../utils/cookies";
+
+export async function refreshToken () {
+    try {
+        const response = await fetch('http://localhost:5000/auth/refresh', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'X-CSRF-TOKEN': getCookie('csrf_refresh_token')
+            }
+        });
+
+        return response.ok;
+
+    } catch (error) {
+        console.error('Ошибка при проверке авторизации:', error);
+        return null;
+    }
+}
