@@ -1,25 +1,74 @@
 import styles from './ProfilePage.module.css';
 import userAv from "../../assets/profile/user.png";
+import {useEffect, useState} from "react";
+import {authFlow} from "../../api/auth/authFlow";
+import {useNavigate} from "react-router-dom";
+import {getSelf} from "../../api/users/getSelf";
 
 function ProfilePage() {
+
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);
+    const [fullName, setFullName] = useState('Самохвалов Вячеслав Дмитриевич');
+    const [email, setEmail] = useState('vyacheslav@samokhvaloff.ru');
+    const [birthday, setBirthday] = useState('2004-11-28');
+    const [gender, setGender] = useState('Male');
+    const [city, setCity] = useState('Chelyabinsk');
+
+    const [phoneNumber, setPhoneNumber] = useState('+7 (932) 015-40-22');
+
+    const [uniqueCode, setUniqueCode] = useState('stud-wr9s6df5g');
+    const [status, setStatus] = useState('student');
+
+    useEffect(() => {
+        const verifyAuth = async () => {
+            const userId = await authFlow();
+            if (!userId) {
+                navigate('/sign-in');
+            } else {
+                setIsLoading(false);
+                getSelf().then(data => {
+                    setFullName(data.full_name);
+                    setEmail(data.email);
+                    setBirthday(data.birthday);
+                    setGender(data.gender);
+                    setCity(data.city);
+                    setPhoneNumber(data.phone_number);
+                    setUniqueCode(data.unique_code);
+                });
+            }
+        };
+        verifyAuth().then();
+    }, [navigate]);
+
+    if (isLoading) {
+        return (
+            <div className="container d-flex justify-content-center align-items-center p-4">
+                <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="container">
             <div className="row mb-4">
                 <div className="col-md-7">
-                    <div className="card p-4 ">
+                    <div className="card p-4 rounded-5 h-100">
                         <div className="d-flex">
                             <div className="me-4 text-center p-3">
                                 <img className="img-logo mb-3" src={userAv} alt="Логотип магазина" width="150" height="150" /><br/>
                                 <a href="#" className="small-link ">Изменить фото<br/>профиля</a>
                             </div>
                             <div>
-                                <h5 className="mb-3"><strong>Самохвалов Вячеслав Дмитриевич</strong></h5>
-                                <p className="mb-1">Email: vyacheslav@samokhvaloff.ru</p>
-                                <p className="mb-1">Дата рождения: 28 ноября 2004 года (20 лет)</p>
-                                <p className="mb-1">Пол: Мужской</p>
-                                <p className="mb-1">Город: Челябинск</p>
-                                <p className="mb-1">Номер телефона: +7 (932) 015-40-22</p>
-                                <p className="mb-1">Уникальный код: stud-wr9s6df5g</p>
+                                <h5 className="mb-3"><strong>{fullName}</strong></h5>
+                                <p className="mb-1">Email: {email}</p>
+                                <p className="mb-1">Дата рождения: {birthday}</p>
+                                <p className="mb-1">Пол: {gender}</p>
+                                <p className="mb-1">Город: {city}</p>
+                                <p className="mb-1">Номер телефона: {phoneNumber}</p>
+                                <p className="mb-1">Уникальный код: {uniqueCode}</p>
                                 <p className="mb-1">Статус: обучающийся</p>
                             </div>
                         </div>
@@ -31,8 +80,8 @@ function ProfilePage() {
                 </div>
 
                 <div className="col-md-5">
-                    <div className="card p-3">
-                        <div className="section-title">Мои домашние задания</div>
+                    <div className="card p-4 rounded-5 h-100">
+                        <h5 className="mb-3"><strong>Мои домашние задания</strong></h5>
                         <div className="mb-3 p-2 border rounded">
                             <strong>Вводное тестирование №1</strong><br/>
                             Статус: <em>не решено</em><br/>
@@ -52,8 +101,8 @@ function ProfilePage() {
 
             <div className="row">
                 <div className="col-md-6 mb-4">
-                    <div className="card p-3">
-                        <div className="section-title">Мои абонементы</div>
+                    <div className="card p-4 rounded-5 h-100">
+                        <h5 className="mb-3"><strong>Мои абонементы</strong></h5>
                         <div className="p-3 bg-light border rounded">
                             <strong>Абонемент №434 (актуален)</strong><br/>
                             Создатель: Нагорная Елена Александровна<br/>
@@ -66,8 +115,8 @@ function ProfilePage() {
                 </div>
 
                 <div className="col-md-6 mb-4">
-                    <div className="card p-3">
-                        <div className="section-title">Ближайшие занятия</div>
+                    <div className="card p-4 rounded-5 h-100">
+                        <h5 className="mb-3"><strong>Ближайшие занятия</strong></h5>
                         <div className="p-2 border rounded mb-2">
                             <strong>13:30 06.11.2024</strong><br/>
                             Логопедическое занятие<br/>
