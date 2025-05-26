@@ -12,7 +12,6 @@ export async function checkAuth() {
             return null;
         }
     } catch (error) {
-        console.error('Ошибка при проверке авторизации:', error);
         return null;
     }
 }

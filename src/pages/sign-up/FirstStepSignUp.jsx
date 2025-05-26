@@ -8,6 +8,7 @@ import {
     validatePassword,
     passwordsMatch
 } from "../../utils/validation";
+import {checkEmail} from "../../api/register/checkEmail";
 
 function FirstStepSignUp({ onNextStep }) {
     const [email, setEmail] = useState("");
@@ -19,6 +20,7 @@ function FirstStepSignUp({ onNextStep }) {
     const [selectedGender, setSelectedGender] = useState("");
 
     const [errors, setErrors] = useState({});
+    const [emailError, setEmailError] = useState(false);
 
     const handleContinue = () => {
         const newErrors = {};
@@ -33,8 +35,23 @@ function FirstStepSignUp({ onNextStep }) {
 
         setErrors(newErrors);
 
-        if (Object.keys(newErrors).length === 0) {
-            onNextStep(selectedRole);
+        if (Object.keys(newErrors).length === 0 && !emailError) {
+            onNextStep(email, fullName, birthDate, password, selectedRole, selectedGender);
+        }
+    };
+
+    const checkEmailFunc = async (e) => {
+        const newEmail = e.target.value;
+        setEmail(newEmail);
+        setEmailError(false);
+
+        try {
+            const result = await checkEmail({ email: newEmail });
+            if (result === "Данный email занят") {
+                setEmailError(true);
+            }
+        } catch (error) {
+            console.error("Ошибка при проверке email:", error);
         }
     };
 
@@ -49,9 +66,10 @@ function FirstStepSignUp({ onNextStep }) {
                     type="email"
                     placeholder="Введите адрес электронной почты…"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => checkEmailFunc(e)}
                 />
                 {errors.email && <div className={styles.Error}>{errors.email}</div>}
+                {emailError && <div className={styles.Error}>Данный email уже занят</div>}
 
                 <label>Фамилия Имя Отчество*</label>
                 <input

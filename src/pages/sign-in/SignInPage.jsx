@@ -2,17 +2,20 @@ import {useContext, useEffect, useState} from 'react';
 import styles from './SignInPage.module.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {checkAuth} from "../../api/checkAuth";
+import {authFlow} from "../../api/auth/authFlow";
+import {useNavigate} from "react-router-dom";
 
 
 function SignInPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(''); // сбрасываем ошибку перед новым запросом
+        setError('');
 
         try {
             const response = await fetch('http://localhost:5000/auth/login', {
@@ -30,20 +33,39 @@ function SignInPage() {
                 return;
             }
 
-            // сюда добавить редирект на страницу с профилем
+            navigate('/');
 
         } catch (err) {
             setError('Ошибка подключения к серверу');
         }
     };
 
+    useEffect(() => {
+        const verifyAuth = async () => {
+            const userId = await authFlow();
+            if (userId) {
+                navigate('/');
+            } else {
+                setIsLoading(false);
+            }
+        };
+        verifyAuth().then();
+    }, [navigate]);
+
+    if (isLoading) {
+        return (
+            <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+        );
+    }
 
     return (
         <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '60vh' }}>
             <div style={{ width: '100%', maxWidth: '600px' }}>
                 <h1 className="text-center mb-3">Вход в аккаунт</h1>
                 <p className="text-center mb-5">Пожалуйста, войдите в аккаунт, чтобы получить доступ к личному кабинету.</p>
-                {error && <div className="alert alert-danger mt-3">{error}</div>}
+                {error && <div className="alert alert-danger">{error}</div>}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Адрес электронной почты</Form.Label>

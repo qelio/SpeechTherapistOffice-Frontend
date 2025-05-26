@@ -5,22 +5,34 @@ import SecondStepSignUp from "./SecondStepSignUp";
 import { useState } from "react";
 
 function SignUpPage() {
-    const [step, setStep] = useState(1);
-    const [role, setRole] = useState("");
+    const [email, setEmail] = useState("");
+    const [fullName, setFullName] = useState("");
+    const [birthDate, setBirthDate] = useState("");
+    const [password, setPassword] = useState("");
+    const [selectedRole, setSelectedRole] = useState("");
+    const [selectedGender, setSelectedGender] = useState("");
 
-    const handleNextStep = (selectedRole) => {
-        setRole(selectedRole);
+    const [step, setStep] = useState(1);
+
+    const handleNextStep = (email, fullName, birthDate, password, selectedRole, selectedGender) => {
+        setEmail(email);
+        setFullName(fullName);
+        setBirthDate(birthDate);
+        setPassword(password);
+        setSelectedRole(selectedRole);
+        setSelectedGender(selectedGender);
         setStep(2);
     };
 
+    const onClickSubmit = () => {
+        //
+    }
+
     return (
         <div className={styles.RegisterConatiner}>
-            <div className={styles.RegisterImage}>
-                <img src={logopediaPng} alt="Регистрация" />
-            </div>
-
             {step === 1 && <FirstStepSignUp onNextStep={handleNextStep} />}
-            {step === 2 && <SecondStepSignUp roleUser={role} />}
+            {step === 2 && <SecondStepSignUp email={email} fullName={fullName} birthDate={birthDate}
+                                             password={password} selectedRole={selectedRole} selectedGender={selectedGender} />}
         </div>
     );
 }

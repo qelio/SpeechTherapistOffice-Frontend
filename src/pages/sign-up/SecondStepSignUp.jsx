@@ -2,8 +2,12 @@ import styles from './SignUpPage.module.css';
 import ButtonFullWidth from "../../components/buttons/button-full-width/ButtonFullWidth";
 import {useState} from "react";
 import {validatePhoneNumber} from "../../utils/validation";
+import {registerUser} from "../../api/register/registerUser";
+import {useNavigate} from "react-router-dom";
 
-function SecondStepSignUp( {roleUser}) {
+function SecondStepSignUp( {email, fullName, birthDate, password, selectedRole, selectedGender}) {
+    const navigate = useNavigate();
+
     const [errors, setErrors] = useState({});
 
     const [city, setCity] = useState("");
@@ -16,14 +20,35 @@ function SecondStepSignUp( {roleUser}) {
         const newErrors = {};
         if (!validatePhoneNumber(phone)) newErrors.phone = "Введите корректный номер телефона.";
         if (!city) newErrors.city = "Введите корректное название города."
-        if (roleUser === "parent") {
+        if (selectedRole === "parent") {
             if (workPhone) {
                 if (!validatePhoneNumber(workPhone)) newErrors.workPhone = "Введите корректный рабочий номер телефона.";
             }
         }
         setErrors(newErrors);
         if (Object.keys(newErrors).length === 0) {
-            alert('Можно приступать к регистрации!');
+            if (selectedRole === "parent") {
+                let data = {email, fullName, birthDate, password, selectedRole, selectedGender, city, phone, workPhone, work};
+                registerUser(data).then(result => {
+                    if (result === "Пользователь успешно зарегистрирован") {
+                        navigate("/");
+                    } else {
+                        navigate("/sign-up");
+                    }
+                });
+            }
+            if (selectedRole === "student") {
+                let data = {email, fullName, birthDate, password, selectedRole, selectedGender, city, phone, school};
+                registerUser(data).then(result => {
+                    if (result === "Пользователь успешно зарегистрирован") {
+                        navigate("/");
+                    } else {
+                        alert(result);
+                        navigate("/sign-up");
+                    }
+                });
+            }
+            // alert('Можно приступать к регистрации!');
         }
     }
 
@@ -51,7 +76,7 @@ function SecondStepSignUp( {roleUser}) {
                 />
                 {errors.phone && <div className={styles.Error}>{errors.phone}</div>}
 
-                {roleUser === 'parent' && (
+                {selectedRole === 'parent' && (
                     <>
                         <label>Рабочий номер телефона</label>
                         <input
@@ -72,7 +97,7 @@ function SecondStepSignUp( {roleUser}) {
                     </>
                 )}
 
-                {roleUser === 'student' && (
+                {selectedRole === 'student' && (
                     <>
                         <label>Место учебы</label>
                         <input

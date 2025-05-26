@@ -1,4 +1,4 @@
-import {getCookie} from "../utils/cookies";
+import {getCookie} from "../../utils/cookies";
 
 export async function refreshToken () {
     try {
@@ -13,7 +13,6 @@ export async function refreshToken () {
         return response.ok;
 
     } catch (error) {
-        console.error('Ошибка при проверке авторизации:', error);
         return null;
     }
 }
