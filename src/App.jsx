@@ -6,6 +6,7 @@ import AppHeader from "./components/header/Header";
 import SignInPage from "./pages/sign-in/SignInPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProfilePage from "./pages/profile/ProfilePage";
+import styles from "./App.css"
 
 function App() {
   return (

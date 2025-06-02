@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {authFlow} from "../../api/auth/authFlow";
 import {useNavigate} from "react-router-dom";
+import ButtonFullWidth from "../../components/buttons/button-full-width/ButtonFullWidth";
 
 
 function SignInPage() {
@@ -92,9 +93,8 @@ function SignInPage() {
                     <a href="#" className="mt-5">
                         Забыли пароль?
                     </a>
-                    <Button className="w-100 mt-4" variant="primary" type="submit">
-                        Войти в аккаунт
-                    </Button>
+                    <ButtonFullWidth buttonText="Войти в аккаунт" onClick={handleSubmit}/>
+
                 </Form>
             </div>
         </div>
