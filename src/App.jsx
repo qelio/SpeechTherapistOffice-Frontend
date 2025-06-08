@@ -7,6 +7,8 @@ import SignInPage from "./pages/sign-in/SignInPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProfilePage from "./pages/profile/ProfilePage";
 import styles from "./App.css"
+import SubscriptionsPage from "./pages/subscriptions-page/SubscriptionsPage";
+import SchedulePage from "./pages/schedule/SchedulePage";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/subscriptions" element={<SubscriptionsPage />} />
+            <Route path="/schedule" element={<SchedulePage />} />
           </Routes>
         </main>
         <AppFooter />

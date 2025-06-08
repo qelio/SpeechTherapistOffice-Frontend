@@ -60,8 +60,8 @@ const AppHeader = () => {
                 </a>
                 {isAuthenticated &&
                     <ul className="nav col-12 col-md-auto justify-content-center mb-md-0">
-                        <li><a href="#" className="nav-link px-2 link-dark">Абонементы</a></li>
-                        <li><a href="#" className="nav-link px-2 link-dark">Расписание</a></li>
+                        <li><a href="/subscriptions" className="nav-link px-2 link-dark">Абонементы</a></li>
+                        <li><a href="/schedule" className="nav-link px-2 link-dark">Расписание</a></li>
                         <li><a href="#" className="nav-link px-2 link-dark">Домашние задания</a></li>
                         <li><a href="/profile" className="nav-link px-2 link-dark">Мой профиль</a></li>
                     </ul>
