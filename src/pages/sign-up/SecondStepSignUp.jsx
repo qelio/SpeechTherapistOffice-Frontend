@@ -48,7 +48,6 @@ function SecondStepSignUp( {email, fullName, birthDate, password, selectedRole, 
                     }
                 });
             }
-            // alert('Можно приступать к регистрации!');
         }
     }
 

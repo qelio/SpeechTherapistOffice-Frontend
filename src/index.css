@@ -32,9 +32,3 @@ html, body, #root {
 main {
   flex: 1;
 }
-
-:root {
-  --bs-primary: #6f42c1; /* Фиолетовый вместо синего */
-  --bs-primary-rgb: 111, 66, 193;
-  --bs-btn-hover-bg: #5a32a8; /* Цвет при наведении */
-}

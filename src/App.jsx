@@ -9,6 +9,9 @@ import ProfilePage from "./pages/profile/ProfilePage";
 import styles from "./App.css"
 import SubscriptionsPage from "./pages/subscriptions-page/SubscriptionsPage";
 import SchedulePage from "./pages/schedule/SchedulePage";
+import TeachingPage from "./pages/teaching/TeachingPage";
+import EducationMaterialsPage from "./pages/education-materials/EducationMaterialsPage";
+import ScheduleTeacherPage from "./pages/schedule-teacher/ScheduleTeacherPage";
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/subscriptions" element={<SubscriptionsPage />} />
             <Route path="/schedule" element={<SchedulePage />} />
+            <Route path="/schedule-teacher" element={<ScheduleTeacherPage />} />
+            <Route path="/teaching" element={<TeachingPage />} />
+            <Route path="/education-materials" element={<EducationMaterialsPage />} />
           </Routes>
         </main>
         <AppFooter />
