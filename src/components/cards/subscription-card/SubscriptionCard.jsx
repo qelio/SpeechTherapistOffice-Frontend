@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import {deleteSubscriptionFetch} from "../../../api/teaching/deleteSubscriptionFetch";
 import {archiveSubscriptionFetch} from "../../../api/teaching/archiveSubscriptionFetch";
 
-export default function SubscriptionCard({ subscription, updateSubscriptions, showNotification }) {
+export default function SubscriptionCard({ subscription, updateSubscriptions, showNotification, isStudent = false }) {
     const subscriptionId = String(subscription.subscription_id).padStart(6, '0');
 
     // Состояния для данных абонемента
@@ -69,7 +69,7 @@ export default function SubscriptionCard({ subscription, updateSubscriptions, sh
     };
 
     return (
-        <div className={`card ${subscription.in_archive === false ? 'text-white bg-primary' : 'text-dark bg-light'} mb-3 ${styles.card}`}>
+        <div className={`card ${subscription.in_archive === false ? 'text-dark bg-light' : 'text-dark bg-light'} mb-3 ${styles.card}`}>
             <div className="card-header d-flex justify-content-between align-items-center">
                 <span className="fw-bold">Абонемент #{subscriptionId}</span>
                 <span className={`badge ${subscription.in_archive ? 'bg-warning text-dark' : 'bg-light text-dark'}`}>
@@ -105,15 +105,15 @@ export default function SubscriptionCard({ subscription, updateSubscriptions, sh
                 </div>
 
                 <div className="mt-4 w-100 d-flex justify-content-end gap-2">
-                    {!subscription.in_archive && (
+                    {(!subscription.in_archive && !isStudent) && (
                         <>
-                            <button
-                                type="button"
-                                className="btn btn-light"
-                                onClick={() => handleArchive(subscription.subscription_id)}
-                            >
-                                Принудительно архивировать
-                            </button>
+                            {/*<button*/}
+                            {/*    type="button"*/}
+                            {/*    className="btn btn-light"*/}
+                            {/*    onClick={() => handleArchive(subscription.subscription_id)}*/}
+                            {/*>*/}
+                            {/*    Принудительно архивировать*/}
+                            {/*</button>*/}
                             <button
                                 type="button"
                                 className="btn btn-warning"
@@ -121,11 +121,13 @@ export default function SubscriptionCard({ subscription, updateSubscriptions, sh
                             >Редактировать</button>
                         </>
                     )}
-                    <button
-                        type="button"
-                        className="btn btn-danger"
-                        onClick={() => handleDelete(subscription.subscription_id)}
-                    >Удалить</button>
+                    {!isStudent && (
+                        <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={() => handleDelete(subscription.subscription_id)}
+                        >Удалить</button>
+                    )}
                 </div>
             </div>
         </div>

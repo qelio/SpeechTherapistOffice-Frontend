@@ -12,9 +12,12 @@ import SchedulePage from "./pages/schedule/SchedulePage";
 import TeachingPage from "./pages/teaching/TeachingPage";
 import EducationMaterialsPage from "./pages/education-materials/EducationMaterialsPage";
 import ScheduleTeacherPage from "./pages/schedule-teacher/ScheduleTeacherPage";
+import HomeWorkPage from "./pages/home-works/HomeWorkPage";
+import {useAuthInterval} from "./hooks/useAuthInterval";
 
 function App() {
-  return (
+    useAuthInterval();
+    return (
       <div className="app">
         <AppHeader />
         <main>
@@ -28,6 +31,7 @@ function App() {
             <Route path="/schedule-teacher" element={<ScheduleTeacherPage />} />
             <Route path="/teaching" element={<TeachingPage />} />
             <Route path="/education-materials" element={<EducationMaterialsPage />} />
+            <Route path="/home-works" element={<HomeWorkPage />} />
           </Routes>
         </main>
         <AppFooter />

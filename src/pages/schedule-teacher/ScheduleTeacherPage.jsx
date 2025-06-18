@@ -15,6 +15,7 @@ import ruLocale from "@fullcalendar/core/locales/ru";
 import ModularCalendar from "./chapters/modular-calendar/ModularCalendar";
 import UpcomingClasses from "./chapters/upcoming-classes/UpcomingClasses";
 import CreateNewClass from "./chapters/create-new-class/CreateNewClass";
+import PastClasses from "./chapters/past-classes/PastClasses";
 
 export default function ScheduleTeacherPage() {
 
@@ -23,6 +24,10 @@ export default function ScheduleTeacherPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [chapter, setChapter] = useState(1);
     const [teacherId, setTeacherId] = useState(0);
+
+    function onSuccessCreate() {
+        setChapter(2);
+    }
 
     function updateTeacherStates() {
         getSelf().then((data) => {
@@ -91,6 +96,13 @@ export default function ScheduleTeacherPage() {
                                        href="#"
                                        onClick={() => {
                                            setChapter(3);
+                                       }}>Прошедшие занятия</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link"
+                                       href="#"
+                                       onClick={() => {
+                                           setChapter(4);
                                        }}>Создание нового занятия</a>
                                 </li>
                             </ul>
@@ -103,7 +115,10 @@ export default function ScheduleTeacherPage() {
                         <UpcomingClasses showNotification={showNotification} />
                     )}
                     {chapter === 3 && (
-                        <CreateNewClass showNotification={showNotification} />
+                        <PastClasses showNotification={showNotification} />
+                    )}
+                    {chapter === 4 && (
+                        <CreateNewClass showNotification={showNotification} onSuccessCreate={onSuccessCreate} />
                     )}
                 </div>
             </div>

@@ -1,121 +1,79 @@
 import styles from './SubscriptionsPage.module.css';
+import useNotification from "../../hooks/useNotificationNeutral";
+import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {authFlow} from "../../api/auth/authFlow";
+import NotificationNeutral from "../../components/notifications/notification-neutral/NotificationNeutral";
+import SubscriptionCard from "../../components/cards/subscription-card/SubscriptionCard";
+import {getCurrentStudentSubscriptions} from "../../api/schedule/getCurrentStudentSubscriptions";
 
 function SubscriptionsPage() {
+
+    const { notification, showNotification, closeNotification } = useNotification();
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);
+
+    // Состояние для всех полученных абонементов
+    const[subscriptions, setSubscriptions] = useState([]);
+
+    function getSubscriptions() {
+        getCurrentStudentSubscriptions().then(async (response) => {
+            const data = await response.json();
+            if (response.ok) {
+                console.log(data);
+                setSubscriptions(data);
+            } else {
+                showNotification(`Ошибка при получении списка абонементов: ${data.message}`, 3000, 'error');
+            }
+        });
+    }
+
+    useEffect(() => {
+        const verifyAuth = async () => {
+            const userId = await authFlow();
+            if (!userId) {
+                navigate('/sign-in');
+            } else {
+                setIsLoading(false);
+                getSubscriptions();
+            }
+        };
+        verifyAuth().then();
+    }, [navigate]);
+
     return (
-        <div className="container py-4">
-            <h4 className="text-center fw-bold mb-3">Мои активные абонементы</h4>
-            <hr />
+        <div className={styles.mainContainer}>
+            {notification && (
+                <NotificationNeutral
+                    message={notification.message}
+                    onClose={closeNotification}
+                    duration={notification.duration}
+                    type={notification.type}
+                />
+            )}
 
-            <div className="row mb-4">
-                <div className="col-md-6 mb-4">
-                    <div className="card p-3" style={{ backgroundColor: '#d4edda' }}>
-                        <div className="d-flex justify-content-between">
-                            <span>Статус: активный</span>
-                            <span>Срок действия: 03.04.2025 - 10.04.2025</span>
-                        </div>
-                        <h5 className="mt-2">Абонемент #000398</h5>
-                        <p>Обучающийся: Самохвалов Вячеслав Дмитриевич</p>
-                        <div>
-                            <span className="badge bg-success me-1 p-3">1</span>
-                            <span className="badge bg-success me-1 p-3">2</span>
-                            <span className="badge bg-danger me-1 p-3">3</span>
-                            <span className="badge bg-primary me-1 p-3">5</span>
-                            <span className="badge bg-secondary me-1 p-3">6</span>
-                            <span className="badge bg-secondary me-1 p-3">7</span>
-                            <span className="badge bg-secondary me-1 p-3">8</span>
-                            <span className="badge bg-secondary me-1 p-3">9</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-md-6 mb-4">
-                    <div className="card p-3" style={{ backgroundColor: '#d4edda' }}>
-                        <div className="d-flex justify-content-between">
-                            <span>Статус: активный</span>
-                            <span>Срок действия: 03.04.2025 - 10.04.2025</span>
-                        </div>
-                        <h5 className="mt-2">Абонемент #000398</h5>
-                        <p>Обучающийся: Самохвалов Вячеслав Дмитриевич</p>
-                        <div>
-                            <span className="badge bg-success me-1 p-3">1</span>
-                            <span className="badge bg-success me-1 p-3">2</span>
-                            <span className="badge bg-danger me-1 p-3">3</span>
-                            <span className="badge bg-primary me-1 p-3">5</span>
-                            <span className="badge bg-secondary me-1 p-3">6</span>
-                            <span className="badge bg-secondary me-1 p-3">7</span>
-                            <span className="badge bg-secondary me-1 p-3">8</span>
-                            <span className="badge bg-secondary me-1 p-3">9</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="card p-3" style={{ backgroundColor: '#d4edda' }}>
-                        <div className="d-flex justify-content-between">
-                            <span>Статус: активный</span>
-                            <span>Срок действия: 03.04.2025 - 10.04.2025</span>
-                        </div>
-                        <h5 className="mt-2">Абонемент #000398</h5>
-                        <p>Обучающийся: Самохвалов Вячеслав Дмитриевич</p>
-                        <div>
-                            <span className="badge bg-success me-1 p-3">1</span>
-                            <span className="badge bg-success me-1 p-3">2</span>
-                            <span className="badge bg-danger me-1 p-3">3</span>
-                            <span className="badge bg-primary me-1 p-3">5</span>
-                            <span className="badge bg-secondary me-1 p-3">6</span>
-                            <span className="badge bg-secondary me-1 p-3">7</span>
-                            <span className="badge bg-secondary me-1 p-3">8</span>
-                            <span className="badge bg-secondary me-1 p-3">9</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h4 className="text-center fw-bold mb-3">Архивные абонементы</h4>
-            <hr />
-
-            <div className="row">
-                <div className="col-md-6">
-                    <div className="card p-3" style={{ backgroundColor: '#dee2e6' }}>
-                        <div className="d-flex justify-content-between">
-                            <span>Статус: архивный</span>
-                            <span>Срок действия: 03.04.2025 - 10.04.2025</span>
-                        </div>
-                        <h5 className="mt-2">Абонемент #000398</h5>
-                        <p>Обучающийся: Самохвалов Вячеслав Дмитриевич</p>
-                        <div>
-                            <span className="badge bg-success me-1">1</span>
-                            <span className="badge bg-success me-1">2</span>
-                            <span className="badge bg-danger me-1">3</span>
-                            <span className="badge bg-warning text-dark me-1">5</span>
-                            <span className="badge bg-success me-1">6</span>
-                            <span className="badge bg-success me-1">7</span>
-                            <span className="badge bg-success me-1">8</span>
-                            <span className="badge bg-success me-1">9</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-md-6">
-                    <div className="card p-3" style={{ backgroundColor: '#dee2e6' }}>
-                        <div className="d-flex justify-content-between">
-                            <span>Статус: архивный</span>
-                            <span>Срок действия: 03.04.2025 - 10.04.2025</span>
-                        </div>
-                        <h5 className="mt-2">Абонемент #000398</h5>
-                        <p>Обучающийся: Самохвалов Вячеслав Дмитриевич</p>
-                        <div>
-                            <span className="badge bg-success me-1">1</span>
-                            <span className="badge bg-success me-1">2</span>
-                            <span className="badge bg-danger me-1">3</span>
-                            <span className="badge bg-warning text-dark me-1">5</span>
-                            <span className="badge bg-success me-1">6</span>
-                            <span className="badge bg-success me-1">7</span>
-                            <span className="badge bg-success me-1">8</span>
-                            <span className="badge bg-success me-1">9</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h1>Мои абонементы</h1>
+            <p className="mb-4">В данном разделе вы можете просматривать созданные абонементы и редактировать их.</p>
+            {subscriptions.map(subscription => (
+                subscription.in_archive === false && (
+                    <SubscriptionCard
+                        subscription={subscription}
+                        updateSubscriptions={getSubscriptions}
+                        showNotification={showNotification}
+                        isStudent={true}
+                    />
+                )
+            ))}
+            {subscriptions.map(subscription => (
+                subscription.in_archive === true && (
+                    <SubscriptionCard
+                        subscription={subscription}
+                        updateSubscriptions={getSubscriptions}
+                        showNotification={showNotification}
+                        isStudent={true}
+                    />
+                )
+            ))}
         </div>
     );
 }

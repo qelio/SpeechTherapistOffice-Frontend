@@ -1,11 +1,8 @@
-import styles from './UpcomingClasses.module.css';
+import styles from './UpcomingClassesStudent.module.css';
 import {useEffect, useState} from "react";
 import {getUpcomingLessons} from "../../../../api/schedule/getUpcomingLessons";
-import {cancelLesson} from "../../../../api/schedule/cancelLesson";
-import {missLesson} from "../../../../api/schedule/missLesson";
-import {deleteLesson} from "../../../../api/schedule/deleteLesson";
 
-export default function UpcomingClasses( {showNotification} ) {
+export default function UpcomingClassesStudent( {showNotification} ) {
 
     const [lessons, setLessons] = useState([]);
     const [pagination, setPagination] = useState({
@@ -14,42 +11,6 @@ export default function UpcomingClasses( {showNotification} ) {
         total: 0,
         total_pages: 1
     });
-
-    function handleCancelClick(lessonId) {
-        cancelLesson(lessonId).then(async (response) => {
-            const data = await response.json();
-            if (response.ok) {
-                showNotification(`Занятие успешно отменено!`, 3000, 'success');
-                fetchUpcomingLessons();
-            } else {
-                showNotification(`Ошибка при отмене занятия: ${data.message}`, 3000, 'error');
-            }
-        });
-    }
-
-    function handleMissedClick(lessonId) {
-        missLesson(lessonId).then(async (response) => {
-            const data = await response.json();
-            if (response.ok) {
-                showNotification(`Занятие отмечено, как "пропущенное"!`, 3000, 'success');
-                fetchUpcomingLessons();
-            } else {
-                showNotification(`Ошибка при пропуске занятия: ${data.message}`, 3000, 'error');
-            }
-        });
-    }
-    function handleDeleteClick(lessonId) {
-        deleteLesson(lessonId).then(async (response) => {
-            const data = await response.json();
-            if (response.ok) {
-                console.log(data);
-                showNotification(`Занятие успешно удалено!`, 3000, 'success');
-                fetchUpcomingLessons();
-            } else {
-                showNotification(`Ошибка при удалении занятия: ${data.message}`, 3000, 'error');
-            }
-        });
-    }
 
     function fetchUpcomingLessons(page = 1) {
         getUpcomingLessons(page, pagination.per_page).then(async (response) => {
@@ -84,10 +45,9 @@ export default function UpcomingClasses( {showNotification} ) {
                         <th>Дата</th>
                         <th className="text-center">Дисциплина</th>
                         <th className="text-center">Статус</th>
-                        <th>Ученик</th>
+                        <th>Учитель</th>
                         <th className="text-center">Тип</th>
                         <th>Место проведения</th>
-                        <th className="text-center">Действия</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -109,11 +69,11 @@ export default function UpcomingClasses( {showNotification} ) {
                                 </span>
                             </td>
                             <td className="align-middle">
-                                {lesson.student_full_name} {lesson.subscription_id && (
-                                    <>
-                                        (абонемент #{String(lesson.subscription_id).padStart(6, '0')})
-                                    </>
-                                )}
+                                {lesson.teacher_full_name} {lesson.subscription_id && (
+                                <>
+                                    <br/>(в рамках абонемента #{String(lesson.subscription_id).padStart(6, '0')})
+                                </>
+                            )}
                             </td>
                             <td className="align-middle text-center">
                                 {lesson.online_call_url ? 'онлайн' : 'очное'}
@@ -127,26 +87,6 @@ export default function UpcomingClasses( {showNotification} ) {
                                         {lesson.branch_name} ({lesson.classroom_name})
                                     </>
                                 )}
-                            </td>
-                            <td className="align-middle text-center">
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-primary w-100 mb-2"
-                                    style={{ fontSize: '10pt' }}
-                                    onClick={() => handleCancelClick(lesson.lesson_id)}
-                                >Отменено вовремя</button>
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-warning w-100 mb-2"
-                                    style={{ fontSize: '10pt' }}
-                                    onClick={() => handleMissedClick(lesson.lesson_id)}
-                                >Пропущено</button>
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-danger w-100 mb-2"
-                                    style={{ fontSize: '10pt' }}
-                                    onClick={() => handleDeleteClick(lesson.lesson_id)}
-                                >Удалить</button>
                             </td>
                         </tr>
                     ))}
