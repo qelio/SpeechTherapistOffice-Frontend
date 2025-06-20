@@ -1,6 +1,6 @@
 export async function getClassrooms (branchId) {
     try {
-        const response = await fetch(`http://localhost:5000/classrooms/branch/${branchId}`, {
+        const response = await fetch(`http://80.249.151.3/api/classrooms/branch/${branchId}`, {
             method: 'GET',
             credentials: 'include'
         });

@@ -2,7 +2,7 @@ import {getCookie} from "../../utils/cookies";
 
 export async function cancelLesson (lessonId) {
     try {
-        const response = await fetch(`http://localhost:5000/lessons/cancel/${lessonId}`, {
+        const response = await fetch(`http://80.249.151.3/api/lessons/cancel/${lessonId}`, {
             method: 'PUT',
             credentials: 'include',
             headers: {

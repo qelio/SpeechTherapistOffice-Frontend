@@ -2,7 +2,7 @@ import {getCookie} from "../../utils/cookies";
 
 export async function createLesson (data) {
     try {
-        const response = await fetch('http://localhost:5000/lessons/create', {
+        const response = await fetch('http://80.249.151.3/api/lessons/create', {
             method: 'POST',
             credentials: 'include',
             headers: {

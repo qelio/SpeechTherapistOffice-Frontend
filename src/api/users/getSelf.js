@@ -1,6 +1,6 @@
 export async function getSelf() {
     try {
-        const response = await fetch('http://localhost:5000/users/get_self', {
+        const response = await fetch('http://80.249.151.3/api/users/get_self', {
             method: 'GET',
             credentials: 'include'
         });

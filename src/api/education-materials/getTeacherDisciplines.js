@@ -1,6 +1,6 @@
 export async function getTeacherDisciplines () {
     try {
-        const response = await fetch(`http://localhost:5000/disciplines/teacher`, {
+        const response = await fetch(`http://80.249.151.3/api/disciplines/teacher`, {
             method: 'GET',
             credentials: 'include'
         });

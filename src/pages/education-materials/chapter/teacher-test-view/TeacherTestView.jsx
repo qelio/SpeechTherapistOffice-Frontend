@@ -8,7 +8,7 @@ export default function TeacherTestsView({ showNotification }) {
 
     const fetchTeacherTests = async () => {
         try {
-            const response = await fetch('http://localhost:5000/active_tests/student-tests', {
+            const response = await fetch('http://80.249.151.3/api/active_tests/student-tests', {
                 method: 'GET',
                 credentials: 'include',
                 headers: {

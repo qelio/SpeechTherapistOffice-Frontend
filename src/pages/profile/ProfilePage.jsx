@@ -274,7 +274,7 @@ function ProfilePage() {
             setPhoneNumber(data.phone_number);
             setUniqueCode(data.unique_code);
             if (data.profile_picture_url) {
-                setProfilePictureUrl(`http://localhost:5000/users/get_profile_picture?t=${Date.now()}`);
+                setProfilePictureUrl(`http://80.249.151.3/api/users/get_profile_picture?t=${Date.now()}`);
                 console.log('update');
             } else {
                 setProfilePictureUrl(userAv);

@@ -130,7 +130,7 @@ export default function TeachingPage() {
             const formattedData = data.map(item => {
                 let profile_picture_url = '';
                 if (item.profile_picture_url) {
-                    profile_picture_url = `http://localhost:5000/users/get_profile_picture_by_url?url=${item.profile_picture_url}&t=${Date.now()}`;
+                    profile_picture_url = `http://80.249.151.3/api/users/get_profile_picture_by_url?url=${item.profile_picture_url}&t=${Date.now()}`;
                 } else {
                     profile_picture_url = userAv;
                 }
@@ -177,7 +177,7 @@ export default function TeachingPage() {
                 setStudentCardUniqueCode(data.unique_code);
                 setStudentId(data.student_id);
                 if (data.profile_picture_url) {
-                    setStudentCardProfilePictureUrl(`http://localhost:5000/users/get_profile_picture_by_url?url=${data.profile_picture_url}&t=${Date.now()}`);
+                    setStudentCardProfilePictureUrl(`http://80.249.151.3/api/users/get_profile_picture_by_url?url=${data.profile_picture_url}&t=${Date.now()}`);
                 } else {
                     setStudentCardProfilePictureUrl(userAv);
                 }

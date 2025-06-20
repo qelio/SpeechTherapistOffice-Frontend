@@ -1,6 +1,6 @@
 export async function registerUser(data) {
     try {
-        const response = await fetch('http://localhost:5000/auth/register', {
+        const response = await fetch('http://80.249.151.3/api/auth/register', {
             method: 'POST',
             credentials: 'include',
             headers: {

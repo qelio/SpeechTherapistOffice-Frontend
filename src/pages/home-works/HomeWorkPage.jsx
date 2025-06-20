@@ -20,7 +20,7 @@ export default function HomeWorkPage() {
 
     async function startTest(activeId) {
         try {
-            const response = await fetch(`http://localhost:5000/active_tests/start/${activeId}`, {
+            const response = await fetch(`http://80.249.151.3/api/active_tests/start/${activeId}`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -38,7 +38,7 @@ export default function HomeWorkPage() {
 
     async function fetchTestWithAnswers(activeId) {
         try {
-            const response = await fetch(`http://localhost:5000/active_tests/${activeId}/exercises`, {
+            const response = await fetch(`http://80.249.151.3/api/active_tests/${activeId}/exercises`, {
                 credentials: 'include'
             });
             const data = await response.json();
@@ -53,7 +53,7 @@ export default function HomeWorkPage() {
 
     async function submitAnswer(activeId, exerciseId, answer) {
         try {
-            const response = await fetch(`http://localhost:5000/active_tests/${activeId}/add-package`, {
+            const response = await fetch(`http://80.249.151.3/api/active_tests/${activeId}/add-package`, {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': getCookie('csrf_access_token'),
@@ -76,7 +76,7 @@ export default function HomeWorkPage() {
 
     async function completeTest(activeId) {
         try {
-            const response = await fetch(`http://localhost:5000/active_tests/complete/${activeId}`, {
+            const response = await fetch(`http://80.249.151.3/api/active_tests/complete/${activeId}`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

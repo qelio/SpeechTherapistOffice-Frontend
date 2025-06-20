@@ -1,6 +1,6 @@
 export async function checkEmail(data) {
     try {
-        const response = await fetch('http://localhost:5000/auth/check_email', {
+        const response = await fetch('http://80.249.151.3/api/auth/check_email', {
             method: 'POST',
             credentials: 'include',
             headers: {

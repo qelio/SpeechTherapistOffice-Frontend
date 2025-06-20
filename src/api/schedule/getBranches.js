@@ -1,6 +1,6 @@
 export async function getBranches () {
     try {
-        const response = await fetch('http://localhost:5000/branches/', {
+        const response = await fetch('http://80.249.151.3/api/branches/', {
             method: 'GET',
             credentials: 'include'
         });

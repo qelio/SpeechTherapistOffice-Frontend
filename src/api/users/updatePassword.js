@@ -2,7 +2,7 @@ import {getCookie} from "../../utils/cookies";
 
 export async function updatePassword (data) {
     try {
-        const response = await fetch('http://localhost:5000/users/update_password', {
+        const response = await fetch('http://80.249.151.3/api/users/update_password', {
             method: 'PUT',
             credentials: 'include',
             headers: {

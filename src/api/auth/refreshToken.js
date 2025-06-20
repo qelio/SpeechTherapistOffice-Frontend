@@ -2,7 +2,7 @@ import {getCookie} from "../../utils/cookies";
 
 export async function refreshToken () {
     try {
-        const response = await fetch('http://localhost:5000/auth/refresh', {
+        const response = await fetch('http://80.249.151.3/api/auth/refresh', {
             method: 'POST',
             credentials: 'include',
             headers: {

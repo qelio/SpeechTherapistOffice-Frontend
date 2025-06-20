@@ -1,6 +1,6 @@
 export async function getStudentSubscriptions (studentId) {
     try {
-        const response = await fetch(`http://localhost:5000/subscriptions/student/${studentId}`, {
+        const response = await fetch(`http://80.249.151.3/api/subscriptions/student/${studentId}`, {
             method: 'GET',
             credentials: 'include'
         });

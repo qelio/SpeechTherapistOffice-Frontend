@@ -2,7 +2,7 @@ import {getCookie} from "../../utils/cookies";
 
 export async function disconnectStudentFetch (data) {
     try {
-        const response = await fetch('http://localhost:5000/associations/delete', {
+        const response = await fetch('http://80.249.151.3/api/associations/delete', {
             method: 'DELETE',
             credentials: 'include',
             headers: {

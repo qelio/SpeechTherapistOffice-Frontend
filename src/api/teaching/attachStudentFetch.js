@@ -2,7 +2,7 @@ import {getCookie} from "../../utils/cookies";
 
 export async function attachStudentFetch (data) {
     try {
-        const response = await fetch('http://localhost:5000/associations/create', {
+        const response = await fetch('http://80.249.151.3/api/associations/create', {
             method: 'POST',
             credentials: 'include',
             headers: {

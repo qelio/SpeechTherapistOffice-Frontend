@@ -1,6 +1,6 @@
 export async function getUserByUniqueCode(uniqueCode) {
     try {
-        const response = await fetch(`http://localhost:5000/users/get_by_unique_code/${uniqueCode}`, {
+        const response = await fetch(`http://80.249.151.3/api/users/get_by_unique_code/${uniqueCode}`, {
             method: 'GET',
             credentials: 'include'
         });

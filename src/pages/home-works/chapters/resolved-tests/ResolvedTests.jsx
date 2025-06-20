@@ -9,7 +9,7 @@ export default function ResolvedTests({ showNotification }) {
 
     const fetchCompletedTests = async () => {
         try {
-            const response = await fetch('http://localhost:5000/active_tests/my-completed-tests', {
+            const response = await fetch('http://80.249.151.3/api/active_tests/my-completed-tests', {
                 headers: {
                     'X-CSRF-TOKEN': getCookie('csrf_access_token')
                 },

@@ -2,7 +2,7 @@ import {getCookie} from "../../utils/cookies";
 
 export async function createTest (data) {
     try {
-        const response = await fetch('http://localhost:5000/tests/create', {
+        const response = await fetch('http://80.249.151.3/api/tests/create', {
             method: 'POST',
             credentials: 'include',
             headers: {

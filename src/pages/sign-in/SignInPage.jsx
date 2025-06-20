@@ -19,7 +19,7 @@ function SignInPage() {
         setError('');
 
         try {
-            const response = await fetch('http://localhost:5000/auth/login', {
+            const response = await fetch('http://80.249.151.3/api/auth/login', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

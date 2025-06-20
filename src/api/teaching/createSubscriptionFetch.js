@@ -2,7 +2,7 @@ import {getCookie} from "../../utils/cookies";
 
 export async function createSubscriptionFetch(data) {
     try {
-        const response = await fetch('http://localhost:5000/subscriptions/create', {
+        const response = await fetch('http://80.249.151.3/api/subscriptions/create', {
             method: 'POST',
             credentials: 'include',
             headers: {

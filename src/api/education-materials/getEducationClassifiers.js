@@ -1,6 +1,6 @@
 export async function getEducationClassifiers () {
     try {
-        const response = await fetch(`http://localhost:5000/education_classifiers/`, {
+        const response = await fetch(`http://80.249.151.3/api/education_classifiers/`, {
             method: 'GET',
             credentials: 'include'
         });

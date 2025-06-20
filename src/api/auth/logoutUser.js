@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 
 export async function logoutUser () {
     try {
-        const response = await fetch('http://localhost:5000/auth/logout', {
+        const response = await fetch('http://80.249.151.3/api/auth/logout', {
             method: 'POST',
             credentials: 'include'
         });

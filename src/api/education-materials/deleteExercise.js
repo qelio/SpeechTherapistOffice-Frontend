@@ -2,7 +2,7 @@ import {getCookie} from "../../utils/cookies";
 
 export async function deleteExercise (exercise_id) {
     try {
-        const response = await fetch(`http://localhost:5000/education_exercises/delete/${exercise_id}`, {
+        const response = await fetch(`http://80.249.151.3/api/education_exercises/delete/${exercise_id}`, {
             method: 'DELETE',
             credentials: 'include',
             headers: {
